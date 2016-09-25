@@ -6,10 +6,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Optional;
-import java.util.Scanner;
-
-import javax.swing.JOptionPane;
 
 import core.database.model.CompanyDO;
 import core.database.model.Coupon;
@@ -208,13 +204,13 @@ public class CompanyDBDAO implements CompanyDAO {
 		return "'" + string + "'";
 	}
 
-	private String updateCompanyInsertQuery(long companyId, String CompanyName, String CompanyPassword, String CompanyEmail) {
+	private String updateCompanyInsertQuery(long companyId, String companyName, String companyPassword, String companyEmail) {
 		StringBuilder sb = new StringBuilder("Update Company SET Company_Name = ");
-		sb.append(surroundWithCommas(CompanyName));
+		sb.append(surroundWithCommas(companyName));
 		sb.append(", Password = ");
-		sb.append(surroundWithCommas(CompanyPassword));
+		sb.append(surroundWithCommas(companyPassword));
 		sb.append(", Email = ");
-		sb.append(surroundWithCommas(CompanyEmail));
+		sb.append(surroundWithCommas(companyEmail));
 		sb.append("WHERE Company_Id = " + companyId);
 		return sb.toString();
 	}

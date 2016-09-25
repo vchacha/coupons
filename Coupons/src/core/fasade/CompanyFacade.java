@@ -50,7 +50,7 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public CustomerDO getCustomer(CustomerDO customerId) {
+	public CustomerDO getCustomer(long customerId) {
 		throw new UnsupportedOperationException();
 	}
 

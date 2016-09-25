@@ -52,7 +52,7 @@ public class CustomerFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public CustomerDO getCustomer(CustomerDO customerId) {
+	public CustomerDO getCustomer(long customerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

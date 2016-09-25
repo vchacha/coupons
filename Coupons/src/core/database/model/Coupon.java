@@ -32,6 +32,69 @@ public class Coupon {
 
 
 
+	public void setCouponID(Long couponID) {
+		this.couponID = couponID;
+	}
+
+
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+
+
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+
+
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+
+
+
+
+	public void setAmount(int amount) {
+		this.amount = amount;
+	}
+
+
+
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+
+
+
+	public void setMessege(String messege) {
+		this.messege = messege;
+	}
+
+
+
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+
+
+
+
+	public void setImage(String image) {
+		this.image = image;
+	}
+
+
+
+
 	public Long getCouponID() {
 		return couponID;
 	}
