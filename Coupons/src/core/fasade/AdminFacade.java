@@ -5,7 +5,7 @@ import java.util.Collection;
 import core.database.CompanyDAO;
 import core.database.CustomerDAO;
 import core.database.model.CompanyDO;
-import core.database.model.Coupon;
+import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
 
@@ -69,61 +69,61 @@ public class AdminFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public int createCoupon(Coupon coupon) {
+	public int createCoupon(CouponDO coupon) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int removeCoupon(Coupon coupon) {
+	public int removeCoupon(CouponDO coupon) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int updateCoupon(Coupon coupon) {
+	public int updateCoupon(CouponDO coupon) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Coupon getCoupon(long couponId) {
+	public CouponDO getCoupon(long couponId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Coupon> getAllCoupons() {
+	public Collection<CouponDO> getAllCoupons() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Coupon> getCouponsByType(Type type) {
+	public Collection<CouponDO> getCouponsByType(Type type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int purchase(Coupon coupon) {
+	public int purchase(CouponDO coupon) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Collection<Coupon> getAllPurchaseCoupons() {
+	public Collection<CouponDO> getAllPurchaseCoupons() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Coupon> getAllPurchaseCouponsByType(Type type) {
+	public Collection<CouponDO> getAllPurchaseCouponsByType(Type type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<Coupon> getAllPurchaseCouponsByPrice(int price) {
+	public Collection<CouponDO> getAllPurchaseCouponsByPrice(int price) {
 		// TODO Auto-generated method stub
 		return null;
 	}

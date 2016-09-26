@@ -10,7 +10,7 @@ import java.util.Optional;
 import java.util.Scanner;
 
 
-import core.database.model.Coupon;
+import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
 
@@ -121,9 +121,9 @@ public class CustomerDBDAO implements CustomerDAO {
 	}
 
 	@Override
-	public Collection<Coupon> getCoupons(long customerId) {
+	public Collection<CouponDO> getCoupons(long customerId) {
 		Statement statement = null;
-		Collection<Coupon> coupons = new ArrayList<>();
+		Collection<CouponDO> coupons = new ArrayList<>();
 		try {
 			statement = connection.createStatement();
 
@@ -131,7 +131,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
 
-				Coupon tempCoupon = new Coupon(Long.parseLong(resultSet.getString("coupon_ID")),
+				CouponDO tempCoupon = new CouponDO(Long.parseLong(resultSet.getString("coupon_ID")),
 						resultSet.getString("title"), resultSet.getString("startDate"), resultSet.getString("endDate"),
 						Integer.parseInt(resultSet.getString("amount")), Type.valueOf(resultSet.getString("type")),
 						resultSet.getString("messege"), Double.parseDouble(resultSet.getString("price")),

@@ -1,8 +1,9 @@
 package core.database.model;
 
-public class Coupon {
-
-	private Long couponID;
+public class CouponDO {
+	
+	private long companyId;
+	private long couponId;
 	private String title;
 	private String startDate;
 	private String endDate;
@@ -15,10 +16,11 @@ public class Coupon {
 	
 
 
-	public Coupon(Long couponID, String title, String startDate, String endDate, int amount, Type type, String messege,
+	public CouponDO(long companyId, long couponId, String title, String startDate, String endDate, int amount, Type type, String messege,
 			double price, String image) {
 		super();
-		this.couponID = couponID;
+		this.companyId = companyId;
+		this.couponId = couponId;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -31,11 +33,9 @@ public class Coupon {
 
 
 
-
-	public void setCouponID(Long couponID) {
-		this.couponID = couponID;
+	public long getCouponId() {
+		return couponId;
 	}
-
 
 
 
@@ -90,13 +90,6 @@ public class Coupon {
 
 	public void setImage(String image) {
 		this.image = image;
-	}
-
-
-
-
-	public Long getCouponID() {
-		return couponID;
 	}
 
 
@@ -161,7 +154,7 @@ public class Coupon {
 	@Override
 	public String toString() {
 		String coupon = 
-		"Coupon Id:" + getCouponID() + "\n" +
+		"Coupon Id:" + getCouponId() + "\n" +
 		"Title:    " + getTitle() + "\n" +
 		"Start Day:" + getStartDate() + "\n" +
 		"End Day:  " + getEndDate() + "\n" + 

@@ -2,7 +2,7 @@ package core.database;
 
 import java.util.Collection;
 
-import core.database.model.Coupon;
+import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 
 public interface CustomerDAO {
@@ -17,7 +17,7 @@ public interface CustomerDAO {
 	
 	Collection<CustomerDO> getAllCustomers();
 	
-	Collection<Coupon> getCoupons(long CustomerId);
+	Collection<CouponDO> getCoupons(long customerId);
 	
 	boolean login(long customerId, String password);
 	

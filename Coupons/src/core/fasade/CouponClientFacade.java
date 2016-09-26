@@ -3,7 +3,7 @@ package core.fasade;
 import java.util.Collection;
 
 import core.database.model.CompanyDO;
-import core.database.model.Coupon;
+import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
 
@@ -29,25 +29,25 @@ public interface CouponClientFacade {
 	
 	public Collection <CustomerDO> getAllCustomer();
 	
-	public int createCoupon(Coupon coupon);
+	public int createCoupon(CouponDO coupon);
 	
-	public int removeCoupon(Coupon coupon);
+	public int removeCoupon(CouponDO coupon);
 	
-	public int updateCoupon(Coupon coupon);
+	public int updateCoupon(CouponDO coupon);
 	
-	public Coupon getCoupon(long couponId );
+	public CouponDO getCoupon(long couponId );
 	
-	public Collection <Coupon> getAllCoupons();
+	public Collection <CouponDO> getAllCoupons();
 	
-	public Collection <Coupon> getCouponsByType(Type type);
+	public Collection <CouponDO> getCouponsByType(Type type);
 	
-	public int purchase(Coupon coupon);
+	public int purchase(CouponDO coupon);
 	
-	public Collection <Coupon> getAllPurchaseCoupons();
+	public Collection <CouponDO> getAllPurchaseCoupons();
 	
-	public Collection <Coupon> getAllPurchaseCouponsByType(Type type);
+	public Collection <CouponDO> getAllPurchaseCouponsByType(Type type);
 	
-	public Collection <Coupon> getAllPurchaseCouponsByPrice(int price);
+	public Collection <CouponDO> getAllPurchaseCouponsByPrice(int price);
 
 
 }

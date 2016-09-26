@@ -8,7 +8,7 @@ public class CustomerDO {
 	private String customerName;
 	private String password;
 	private String email;
-	private Collection <Coupon> coupon;
+	private Collection <CouponDO> coupon;
 
 	public CustomerDO(long customerId, String customerName, String password, String email) {
 		this.customerId = customerId;
@@ -33,11 +33,11 @@ public class CustomerDO {
 		return email;
 	}
 
-	public Collection<Coupon> getCoupon() {
+	public Collection<CouponDO> getCoupon() {
 		return coupon;
 	}
 
-	public void setCoupon(Collection<Coupon> coupon) {
+	public void setCoupon(Collection<CouponDO> coupon) {
 		this.coupon = coupon;
 	}
 

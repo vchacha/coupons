@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import core.database.model.CompanyDO;
-import core.database.model.Coupon;
+import core.database.model.CouponDO;
 import core.database.model.Type;
 
 public class CompanyDBDAO implements CompanyDAO {
@@ -120,17 +120,17 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	@Override
-	public Collection<Coupon> getCoupons(long companyId) {
+	public Collection<CouponDO> getCoupons(long companyId) {
 		Statement statement = null;
-		Collection<Coupon> coupons = new ArrayList<>();
+		Collection<CouponDO> coupons = new ArrayList<>();
 		try {
 			statement = connection.createStatement();
 
-			String couponQuery = "SELECT coupon_ID, title, startDate, endDate, amount, type, messege, image  FROM coupon";
+			String couponQuery = "SELECT comapny_id, coupon_ID, title, startDate, endDate, amount, type, messege, image  FROM coupon";
 			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
 
-				Coupon tempCoupon = new Coupon(Long.parseLong(resultSet.getString("coupon_ID")),
+				CouponDO tempCoupon = new CouponDO(Long.parseLong(resultSet.getString("company_ID")), Long.parseLong(resultSet.getString("coupon_ID")),
 						resultSet.getString("title"), resultSet.getString("startDate"), resultSet.getString("endDate"),
 						Integer.parseInt(resultSet.getString("amount")), Type.valueOf(resultSet.getString("type")),
 						resultSet.getString("messege"), Double.parseDouble(resultSet.getString("price")),
