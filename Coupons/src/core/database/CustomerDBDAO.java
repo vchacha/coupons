@@ -131,7 +131,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
 
-				CouponDO tempCoupon = new CouponDO(Long.parseLong(resultSet.getString("coupon_ID")),
+				CouponDO tempCoupon = new CouponDO(Long.parseLong(resultSet.getString("company_ID")), Long.parseLong(resultSet.getString("coupon_ID")),
 						resultSet.getString("title"), resultSet.getString("startDate"), resultSet.getString("endDate"),
 						Integer.parseInt(resultSet.getString("amount")), Type.valueOf(resultSet.getString("type")),
 						resultSet.getString("messege"), Double.parseDouble(resultSet.getString("price")),
