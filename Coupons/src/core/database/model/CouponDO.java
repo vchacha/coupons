@@ -33,6 +33,12 @@ public class CouponDO {
 
 
 
+	public long getCompanyId() {
+		return companyId;
+	}
+
+
+
 	public long getCouponId() {
 		return couponId;
 	}
