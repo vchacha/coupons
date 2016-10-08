@@ -19,35 +19,39 @@ public interface CouponClientFacade {
 	
 	Collection <CompanyDO> getAllCompanies();
 
-	public int createCustomer(CustomerDO customer);
+	int createCustomer(CustomerDO customer);
 	
-	public int removeCustomer(CustomerDO customer);
+	int removeCustomer(CustomerDO customer);
 	
-	public int updateCustomer(CustomerDO customer);
+	int updateCustomer(CustomerDO customer);
 	
-	public CustomerDO getCustomer(long customerId);
+	CustomerDO getCustomer(long customerId);
 	
-	public Collection <CustomerDO> getAllCustomer();
+	Collection <CustomerDO> getAllCustomer();
 	
-	public int createCoupon(CouponDO coupon);
+	int createCoupon(CouponDO coupon);
 	
-	public int removeCoupon(CouponDO coupon);
+	int removeCoupon(CouponDO coupon);
 	
-	public int updateCoupon(CouponDO coupon);
+	int updateCoupon(CouponDO coupon);
 	
-	public CouponDO getCoupon(long couponId );
+	CouponDO getCoupon(long companyId, long couponId);
 	
-	public Collection <CouponDO> getAllCoupons();
+	Collection <CouponDO> getAllCoupons();
 	
-	public Collection <CouponDO> getCouponsByType(Type type);
+	Collection<CouponDO> getAllCouponsByCompany(long companyId);
 	
-	public int purchase(CouponDO coupon);
+	Collection<CouponDO> getAllCouponsByCustomer(long customerId);
 	
-	public Collection <CouponDO> getAllPurchaseCoupons();
+	Collection <CouponDO> getCouponsByType(long companyId, Type type);
 	
-	public Collection <CouponDO> getAllPurchaseCouponsByType(Type type);
+	int purchaseCoupon(CouponDO coupon);
 	
-	public Collection <CouponDO> getAllPurchaseCouponsByPrice(int price);
+	Collection <CouponDO> getAllPurchaseCoupons(long customerId);
+	
+	Collection <CouponDO> getAllPurchaseCouponsByType(long customerId, Type type);
+	
+	Collection <CouponDO> getAllPurchaseCouponsByPrice(long customerId, int price);
 
 
 }

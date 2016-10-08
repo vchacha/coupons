@@ -2,129 +2,127 @@ package core.fasade;
 
 import java.util.Collection;
 
+import core.database.CustomerDAO;
 import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
 
 public class CustomerFacade implements CouponClientFacade {
+	
+	private CustomerDAO customerDAO;
 
 	@Override
-	public int createCompany(CompanyDO company) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int createCompany(CompanyDO companyDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int removeCompany(CompanyDO company) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int removeCompany(CompanyDO companyDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int updateCompany(CompanyDO company) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCompany(CompanyDO companyDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public CompanyDO getCompany(long companyId) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int createCustomer(CustomerDO customer) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int createCustomer(CustomerDO customerDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int removeCustomer(CustomerDO customer) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int removeCustomer(CustomerDO customerDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int updateCustomer(CustomerDO customer) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCustomer(CustomerDO customerDO) {
+		return customerDAO.createCustomer(customerDO);
 	}
 
 	@Override
 	public CustomerDO getCustomer(long customerId) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<CustomerDO> getAllCustomer() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int createCoupon(CouponDO coupon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int createCoupon(CouponDO couponDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int removeCoupon(CouponDO coupon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int removeCoupon(CouponDO couponDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int updateCoupon(CouponDO coupon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int updateCoupon(CouponDO couponDO) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public CouponDO getCoupon(long couponId) {
-		// TODO Auto-generated method stub
-		return null;
+	public CouponDO getCoupon(long companyId, long couponId) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<CouponDO> getAllCoupons() {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Collection<CouponDO> getCouponsByType(Type type) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<CouponDO> getCouponsByType(long companyId, Type type) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int purchase(CouponDO coupon) {
+	public int purchaseCoupon(CouponDO couponDO) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCoupons() {
+	public Collection<CouponDO> getAllPurchaseCoupons(long customerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCouponsByType(Type type) {
+	public Collection<CouponDO> getAllPurchaseCouponsByType(long customerId, Type type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCouponsByPrice(int price) {
+	public Collection<CouponDO> getAllPurchaseCouponsByPrice(long customerId, int price) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Collection<CompanyDO> getAllCompanies() {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByCustomer(long customerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

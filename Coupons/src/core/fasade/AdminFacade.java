@@ -87,7 +87,7 @@ public class AdminFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public CouponDO getCoupon(long couponId) {
+	public CouponDO getCoupon(long companyId, long couponId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -99,31 +99,43 @@ public class AdminFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public Collection<CouponDO> getCouponsByType(Type type) {
+	public Collection<CouponDO> getCouponsByType(long companyId, Type type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int purchase(CouponDO coupon) {
+	public int purchaseCoupon(CouponDO coupon) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCoupons() {
+	public Collection<CouponDO> getAllPurchaseCoupons(long customerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCouponsByType(Type type) {
+	public Collection<CouponDO> getAllPurchaseCouponsByType(long customerId, Type type) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCouponsByPrice(int price) {
+	public Collection<CouponDO> getAllPurchaseCouponsByPrice(long customerId, int price) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByCustomer(long customerId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

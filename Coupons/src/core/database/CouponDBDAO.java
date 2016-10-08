@@ -7,7 +7,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
 import core.database.model.Type;
 
@@ -69,18 +68,18 @@ public class CouponDBDAO implements CouponDAO {
 		CouponDO couponDO = null;
 		try {
 			statement = connection.createStatement();
-			String couponQuery = "SELECT * FROM coupon where company_Id = " + companyId + " and coupon_id = " + couponId;
+			String couponQuery = "SELECT * FROM coupon where company_Id = " + companyId + " and coupon_Id = " + couponId;
 			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
-				couponDO = new CouponDO(Long.parseLong(resultSet.getString("company_ID")), Long.parseLong(resultSet.getString("coupon_ID")),
-						resultSet.getString("title"), resultSet.getString("startDate"), resultSet.getString("endDate"),
-						Integer.parseInt(resultSet.getString("amount")), Type.valueOf(resultSet.getString("type")),
-						resultSet.getString("messege"), Double.parseDouble(resultSet.getString("price")),
-						resultSet.getString("image"));
+				couponDO = new CouponDO(Long.parseLong(resultSet.getString("Company_ID")), Long.parseLong(resultSet.getString("Coupon_ID")),
+						resultSet.getString("Title"), resultSet.getString("Start_Date"), resultSet.getString("End_Date"),
+						Integer.parseInt(resultSet.getString("Amount")), Type.valueOf(resultSet.getString("Type")),
+						resultSet.getString("Messege"), Double.parseDouble(resultSet.getString("Price")),
+						resultSet.getString("Image"));
 			}
 
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find companyID ..." + companyId + "\n" + e.getMessage());
+			throw new RuntimeException("Wasn't able to find couponID ..." + couponId + "\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -92,24 +91,27 @@ public class CouponDBDAO implements CouponDAO {
 		}
 		return couponDO;
 	}
-
+	
+	
 	@Override
-	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
+	public Collection<CouponDO> getAllCoupons() {
 		Statement statement = null;
 		Collection<CouponDO> coupons = new ArrayList<>();
 		try {
 			statement = connection.createStatement();
 
-			String companyQuery = "SELECT coupon_Id, company_Name, password, email FROM company";
-			ResultSet resultSet = statement.executeQuery(companyQuery);
+			String couponQuery = "SELECT Coupon_Id, Title, Start_Date, End_Date, Amount, Type, Messege, Price, Image FROM Coupon";
+			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
-				CompanyDO tempCompanyDO = new CompanyDO(Integer.parseInt(resultSet.getString("COMPANY_ID")),
-						resultSet.getString("COMPANY_NAME"), resultSet.getString("PASSWORD"),
-						resultSet.getString("EMAIL"));
-				companies.add(tempCompanyDO);
+				CouponDO tempCouponDO = new CouponDO(Long.parseLong(resultSet.getString("Company_ID")), Long.parseLong(resultSet.getString("Coupon_ID")),
+						resultSet.getString("Title"), resultSet.getString("Start_Date"), resultSet.getString("End_Date"),
+						Integer.parseInt(resultSet.getString("Amount")), Type.valueOf(resultSet.getString("Type")),
+						resultSet.getString("Messege"), Double.parseDouble(resultSet.getString("Price")),
+						resultSet.getString("Image"));
+				coupons.add(tempCouponDO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find any company list ...\n" + e.getMessage());
+			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -119,25 +121,57 @@ public class CouponDBDAO implements CouponDAO {
 				e.printStackTrace();
 			}
 		}
-		return companies;
+		return coupons;
 	}
 
+	
 	@Override
-	public Collection<CouponDO> getCoupons(long companyId) {
+	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
 		Statement statement = null;
 		Collection<CouponDO> coupons = new ArrayList<>();
 		try {
 			statement = connection.createStatement();
 
-			String couponQuery = "SELECT comapny_id, coupon_ID, title, startDate, endDate, amount, type, messege, image  FROM coupon";
+			String couponQuery = "SELECT Coupon_Id, Title, Start_Date, End_Date, Amount, Type, Messege, Price, Image FROM Coupon where Company_Id = " + companyId;
+			ResultSet resultSet = statement.executeQuery(couponQuery);
+			while (resultSet.next()) {
+				CouponDO tempCouponDO = new CouponDO(Long.parseLong(resultSet.getString("Company_ID")), Long.parseLong(resultSet.getString("Coupon_ID")),
+						resultSet.getString("Title"), resultSet.getString("Start_Date"), resultSet.getString("End_Date"),
+						Integer.parseInt(resultSet.getString("Amount")), Type.valueOf(resultSet.getString("Type")),
+						resultSet.getString("Messege"), Double.parseDouble(resultSet.getString("Price")),
+						resultSet.getString("Image"));
+				coupons.add(tempCouponDO);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return coupons;
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByCustomer(long customerId) {
+		Statement statement = null;
+		Collection<CouponDO> coupons = new ArrayList<>();
+		try {
+			statement = connection.createStatement();
+
+			String couponQuery = "SELECT comapny_id, coupon_ID, title, start_Date, end_Date, amount, type, messege, image FROM coupon where Customer_Id = " + customerId;
 			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
 
-				CouponDO tempCoupon = new CouponDO(Long.parseLong(resultSet.getString("company_ID")), Long.parseLong(resultSet.getString("coupon_ID")),
-						resultSet.getString("title"), resultSet.getString("startDate"), resultSet.getString("endDate"),
-						Integer.parseInt(resultSet.getString("amount")), Type.valueOf(resultSet.getString("type")),
-						resultSet.getString("messege"), Double.parseDouble(resultSet.getString("price")),
-						resultSet.getString("image"));
+				CouponDO tempCoupon = new CouponDO(Long.parseLong(resultSet.getString("Company_ID")), Long.parseLong(resultSet.getString("Coupon_ID")),
+						resultSet.getString("Title"), resultSet.getString("Start_Date"), resultSet.getString("End_Date"),
+						Integer.parseInt(resultSet.getString("Amount")), Type.valueOf(resultSet.getString("Type")),
+						resultSet.getString("Messege"), Double.parseDouble(resultSet.getString("Price")),
+						resultSet.getString("Image"));
 				coupons.add(tempCoupon);
 			}
 		} catch (SQLException e) {
@@ -154,25 +188,26 @@ public class CouponDBDAO implements CouponDAO {
 		return coupons;
 	}
 
+
 	@Override
-	public boolean login(long companyId, String password) {
+	public Collection<CouponDO> getAllCouponsByType(long companyId, Type type) {
 		Statement statement = null;
-		String tempCompanyName = null;
-		String tempPassword = null;
+		Collection<CouponDO> coupons = new ArrayList<>();
 		try {
 			statement = connection.createStatement();
 
-			String loginQuery = "SELECT Company_Id, password from company where Company_Id = '" + companyId
-					+ "' and password = '" + password + "'";
-			ResultSet resultSet = statement.executeQuery(loginQuery);
+			String couponQuery = "SELECT Coupon_Id, Title, Start_Date, End_Date, Amount, Type, Messege, Price, Image FROM Coupon where company_Id = " + companyId + " and Type = " + type;
+			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
-
-				tempCompanyName = resultSet.getString("Company_Id");
-				tempPassword = resultSet.getString("Password");
+				CouponDO tempCouponDO = new CouponDO(Long.parseLong(resultSet.getString("Company_ID")), Long.parseLong(resultSet.getString("Coupon_ID")),
+						resultSet.getString("Title"), resultSet.getString("Start_Date"), resultSet.getString("End_Date"),
+						Integer.parseInt(resultSet.getString("Amount")), Type.valueOf(resultSet.getString("Type")),
+						resultSet.getString("Messege"), Double.parseDouble(resultSet.getString("Price")),
+						resultSet.getString("Image"));
+				coupons.add(tempCouponDO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(
-					"Company id or/and password are not valid! Please try again... \n" + e.getMessage());
+			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -182,14 +217,10 @@ public class CouponDBDAO implements CouponDAO {
 				e.printStackTrace();
 			}
 		}
-
-		if (tempCompanyName != null & tempPassword != null) {
-			return true;
-		} else {
-			return false;
-		}
+		return coupons;
 	}
-
+	
+	
 	private String buildCouponInsertQuery(CouponDO couponDO) {
 		StringBuilder sb = new StringBuilder("INSERT INTO Coupon VALUES(");
 		sb.append(String.valueOf(couponDO.getCompanyId()));
@@ -240,5 +271,7 @@ public class CouponDBDAO implements CouponDAO {
 		sb.append("WHERE Coupo_Id = " + couponId);
 		return sb.toString();
 	}
+
+
 
 }
