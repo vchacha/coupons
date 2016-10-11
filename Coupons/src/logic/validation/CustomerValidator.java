@@ -1,27 +1,27 @@
 package logic.validation;
 
-import core.database.model.CompanyDO;
+import core.database.model.CustomerDO;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class CompanyValidator implements DataValidator<CompanyDO> {
+public class CustomerValidator implements DataValidator<CustomerDO> {
 
 	private static final int MINIMUM_ALLOWED_PASSWORD_LENGTH = 4;
 	private static final long MINIMUN_NUMBER_ID = 1000;
-	private static final int MINIMUN_ALLOWED_COMPANY_NAME_LENGTH = 3;
+	private static final int MINIMUN_ALLOWED_CUSTOMER_NAME_LENGTH = 3;
 
 	@Override
-	public ValidationResponse validateData(CompanyDO companyDO) {
-		boolean isIdMeetRules = validateId(companyDO.getCompanyId());
-		boolean isNameMeetRules = validateStringByName(companyDO.getCompanyName(), MINIMUN_ALLOWED_COMPANY_NAME_LENGTH);
-		boolean isPasswordMeetRules = validateStringByName(companyDO.getPassword(), MINIMUM_ALLOWED_PASSWORD_LENGTH);
-		boolean isEmailMeetRules = validateEmail(companyDO.getEmail());
+	public ValidationResponse validateData(CustomerDO customerDO) {
+		boolean isIdMeetRules = validateId(customerDO.getCustomerId());
+		boolean isNameMeetRules = validateStringByName(customerDO.getCustomerName(), MINIMUN_ALLOWED_CUSTOMER_NAME_LENGTH);
+		boolean isPasswordMeetRules = validateStringByName(customerDO.getPassword(), MINIMUM_ALLOWED_PASSWORD_LENGTH);
+		boolean isEmailMeetRules = validateEmail(customerDO.getEmail());
 		StringBuilder aggregateErrorMessage = new StringBuilder();
 		if (!isIdMeetRules) {
 			aggregateErrorMessage.append("ID does not meet required standards \n");
 		}
 		if (!isNameMeetRules) {
-			aggregateErrorMessage.append("Company name does not meet required standards \n");
+			aggregateErrorMessage.append("Your name does not meet required standards \n");
 		}
 		if (!isPasswordMeetRules) {
 			aggregateErrorMessage.append("Password does not meet required standards \n");

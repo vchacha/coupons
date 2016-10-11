@@ -1,9 +1,12 @@
 package core.database;
 
 import java.sql.Connection;
+import java.util.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -12,7 +15,8 @@ import core.database.model.CouponDO;
 import core.database.model.Type;
 
 public class CompanyDBDAO implements CompanyDAO {
-
+	
+	private static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	private Connection connection;
 
 	public CompanyDBDAO() {
@@ -120,25 +124,24 @@ public class CompanyDBDAO implements CompanyDAO {
 	}
 
 	@Override
-	public Collection<CouponDO> getCoupons(long companyId) {
+	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
 		Statement statement = null;
 		Collection<CouponDO> coupons = new ArrayList<>();
 		try {
 			statement = connection.createStatement();
 
-			String couponQuery = "SELECT comapny_id, coupon_ID, title, startDate, endDate, amount, type, messege, image  FROM coupon";
+			String couponQuery = "SELECT * FROM Coupon where Company_Id = " + companyId;
 			ResultSet resultSet = statement.executeQuery(couponQuery);
 			while (resultSet.next()) {
-
-				CouponDO tempCoupon = new CouponDO(Long.parseLong(resultSet.getString("company_ID")), Long.parseLong(resultSet.getString("coupon_ID")),
-						resultSet.getString("title"), resultSet.getString("startDate"), resultSet.getString("endDate"),
-						Integer.parseInt(resultSet.getString("amount")), Type.valueOf(resultSet.getString("type")),
-						resultSet.getString("messege"), Double.parseDouble(resultSet.getString("price")),
-						resultSet.getString("image"));
-				coupons.add(tempCoupon);
+				CouponDO tempCouponDO = new CouponDO(Long.parseLong(resultSet.getString("Company_ID")), Long.parseLong(resultSet.getString("Coupon_ID")),
+						resultSet.getString("Title"), convertToDate(resultSet.getString("Start_Date")), convertToDate(resultSet.getString("End_Date")),
+						Integer.parseInt(resultSet.getString("Amount")), Type.valueOf(resultSet.getString("Type")),
+						resultSet.getString("Message"), Double.parseDouble(resultSet.getString("Price")),
+						resultSet.getString("Image"));
+				coupons.add(tempCouponDO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find any coupons list ...\n" + e.getMessage());
+			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -149,6 +152,38 @@ public class CompanyDBDAO implements CompanyDAO {
 			}
 		}
 		return coupons;
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByCompanyAndType(long companyId, Type type) {
+		Statement statement = null;
+		Collection<CouponDO> coupons = new ArrayList<>();
+		try {
+			statement = connection.createStatement();
+
+			String couponQuery = "SELECT * FROM Coupon where Company_Id = " + companyId + "and Type = " + type;
+			ResultSet resultSet = statement.executeQuery(couponQuery);
+			while (resultSet.next()) {
+				CouponDO tempCouponDO = new CouponDO(Long.parseLong(resultSet.getString("Company_ID")), Long.parseLong(resultSet.getString("Coupon_ID")),
+						resultSet.getString("Title"), convertToDate(resultSet.getString("Start_Date")), convertToDate(resultSet.getString("End_Date")),
+						Integer.parseInt(resultSet.getString("Amount")), Type.valueOf(resultSet.getString("Type")),
+						resultSet.getString("Message"), Double.parseDouble(resultSet.getString("Price")),
+						resultSet.getString("Image"));
+				coupons.add(tempCouponDO);
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
+		} finally {
+			try {
+				if (statement != null) {
+					statement.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return coupons;
+
 	}
 
 	@Override
@@ -215,4 +250,15 @@ public class CompanyDBDAO implements CompanyDAO {
 		return sb.toString();
 	}
 
+	
+	private Date convertToDate(String date) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(DATE_FORMAT);
+		try {
+			return simpleDateFormat.parse(date);
+		} catch (ParseException e) {
+			throw new RuntimeException("cannot parse date: " + date + " from coupon table: " + "\n" + e.getMessage()); 
+		}		
+	}
+
+	
 }

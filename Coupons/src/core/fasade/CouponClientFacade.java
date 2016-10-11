@@ -9,31 +9,31 @@ import core.database.model.Type;
 
 public interface CouponClientFacade {
 	
-	int createCompany(CompanyDO company);
+	void createCompany(CompanyDO company);
 	
-	int removeCompany(CompanyDO company);
+	void removeCompany(CompanyDO company);
 	
-	int updateCompany(CompanyDO company);
+	void updateCompany(CompanyDO company);
 	
 	CompanyDO getCompany( long companyId);
 	
 	Collection <CompanyDO> getAllCompanies();
 
-	int createCustomer(CustomerDO customer);
+	void createCustomer(CustomerDO customer);
 	
-	int removeCustomer(CustomerDO customer);
+	void removeCustomer(CustomerDO customer);
 	
-	int updateCustomer(CustomerDO customer);
+	void updateCustomer(CustomerDO customer);
 	
 	CustomerDO getCustomer(long customerId);
 	
 	Collection <CustomerDO> getAllCustomer();
 	
-	int createCoupon(CouponDO coupon);
+	void createCoupon(CouponDO coupon);
 	
-	int removeCoupon(CouponDO coupon);
+	void removeCoupon(CouponDO coupon);
 	
-	int updateCoupon(CouponDO coupon);
+	void updateCoupon(CouponDO coupon);
 	
 	CouponDO getCoupon(long companyId, long couponId);
 	
@@ -41,13 +41,11 @@ public interface CouponClientFacade {
 	
 	Collection<CouponDO> getAllCouponsByCompany(long companyId);
 	
-	Collection<CouponDO> getAllCouponsByCustomer(long customerId);
+	Collection <CouponDO> getAllCouponsByCompanyAndType(long companyId, Type type);
 	
-	Collection <CouponDO> getCouponsByType(long companyId, Type type);
+	void purchaseCoupon(CouponDO coupon, long customerId);
 	
-	int purchaseCoupon(CouponDO coupon);
-	
-	Collection <CouponDO> getAllPurchaseCoupons(long customerId);
+	Collection <CouponDO> getAllPurchaseCouponsByCustomer(long customerId);
 	
 	Collection <CouponDO> getAllPurchaseCouponsByType(long customerId, Type type);
 	

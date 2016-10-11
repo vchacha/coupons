@@ -1,32 +1,35 @@
 package core.database.model;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CouponDO {
 	
 	private long companyId;
 	private long couponId;
 	private String title;
-	private String startDate;
-	private String endDate;
+	private Date startDate;
+	private Date endDate;
 	private int amount;
 	private Type type;
-	private String messege;
+	private String message;
 	private double price;
 	private String image;
 	
-	
 
 
-	public CouponDO(long companyId, long couponId, String title, String startDate, String endDate, int amount, Type type, String messege,
+	public CouponDO(long couponId, long companyId, String title, Date startDate, Date endDate, int amount, Type type, String message,
 			double price, String image) {
 		super();
-		this.companyId = companyId;
 		this.couponId = couponId;
+		this.companyId = companyId;
 		this.title = title;
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.amount = amount;
 		this.type = type;
-		this.messege = messege;
+		this.message = message;
 		this.price = price;
 		this.image = image;
 	}
@@ -52,14 +55,14 @@ public class CouponDO {
 
 
 
-	public void setStartDate(String startDate) {
+	public void setStartDate(Date startDate) {
 		this.startDate = startDate;
 	}
 
 
 
 
-	public void setEndDate(String endDate) {
+	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
 
@@ -80,8 +83,8 @@ public class CouponDO {
 
 
 
-	public void setMessege(String messege) {
-		this.messege = messege;
+	public void setMessage(String message) {
+		this.message = message;
 	}
 
 
@@ -108,14 +111,14 @@ public class CouponDO {
 
 
 
-	public String getStartDate() {
+	public Date getStartDate() {
 		return startDate;
 	}
 
 
 
 
-	public String getEndDate() {
+	public Date getEndDate() {
 		return endDate;
 	}
 
@@ -136,8 +139,8 @@ public class CouponDO {
 
 
 
-	public String getMessege() {
-		return messege;
+	public String getMessage() {
+		return message;
 	}
 
 
@@ -154,19 +157,17 @@ public class CouponDO {
 		return image;
 	}
 
-
-
-
 	@Override
 	public String toString() {
 		String coupon = 
 		"Coupon Id:" + getCouponId() + "\n" +
+		"Company Id:" + getCompanyId() + "\n" +
 		"Title:    " + getTitle() + "\n" +
 		"Start Day:" + getStartDate() + "\n" +
 		"End Day:  " + getEndDate() + "\n" + 
 		"Amount:   " + getAmount() + "\n" +
 		"Type:     " + getType() + "\n" +
-		"Messege:  " + getMessege() + "\n" + 
+		"Messege:  " + getMessage() + "\n" + 
 		"Price:    " + getPrice() + "\n" +
 		"Image:    " + getImage() + "\n"; 
 			return coupon;

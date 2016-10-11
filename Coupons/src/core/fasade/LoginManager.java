@@ -2,6 +2,8 @@ package core.fasade;
 
 import core.database.CompanyDAO;
 import core.database.CompanyDBDAO;
+import core.database.CustomerDAO;
+import core.database.CustomerDBDAO;
 import logic.exceptions.LoginException;
 
 public class LoginManager {
@@ -39,9 +41,8 @@ public class LoginManager {
 			break;
 
 		case CUSTOMER:
-			// TODO
-			// CustomerDAO customerDAO = new CustomerDBDAO();
-			// return customerDAO.login(Long.parseLong(id), password);
+			CustomerDAO customerDAO = new CustomerDBDAO();
+			return customerDAO.login(Long.parseLong(id), password);
 
 		default:
 			result = false;

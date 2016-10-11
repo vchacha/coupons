@@ -2,6 +2,7 @@ package core.fasade;
 
 import java.util.Collection;
 
+import core.database.CouponDAO;
 import core.database.CustomerDAO;
 import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
@@ -11,19 +12,20 @@ import core.database.model.Type;
 public class CustomerFacade implements CouponClientFacade {
 	
 	private CustomerDAO customerDAO;
+	private CouponDAO couponDAO;
 
 	@Override
-	public int createCompany(CompanyDO companyDO) {
+	public void createCompany(CompanyDO companyDO) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int removeCompany(CompanyDO companyDO) {
+	public void removeCompany(CompanyDO companyDO) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int updateCompany(CompanyDO companyDO) {
+	public void updateCompany(CompanyDO companyDO) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -33,18 +35,18 @@ public class CustomerFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public int createCustomer(CustomerDO customerDO) {
+	public void createCustomer(CustomerDO customerDO) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int removeCustomer(CustomerDO customerDO) {
+	public void removeCustomer(CustomerDO customerDO) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int updateCustomer(CustomerDO customerDO) {
-		return customerDAO.createCustomer(customerDO);
+	public void updateCustomer(CustomerDO customerDO) {
+		customerDAO.createCustomer(customerDO);
 	}
 
 	@Override
@@ -58,17 +60,17 @@ public class CustomerFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public int createCoupon(CouponDO couponDO) {
+	public void createCoupon(CouponDO couponDO) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int removeCoupon(CouponDO couponDO) {
+	public void removeCoupon(CouponDO couponDO) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int updateCoupon(CouponDO couponDO) {
+	public void updateCoupon(CouponDO couponDO) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -83,20 +85,18 @@ public class CustomerFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public Collection<CouponDO> getCouponsByType(long companyId, Type type) {
+	public Collection<CouponDO> getAllCouponsByCompanyAndType(long companyId, Type type) {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int purchaseCoupon(CouponDO couponDO) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void purchaseCoupon(CouponDO couponDO, long customerId) {
+		customerDAO.purchaseCoupon(couponDO, customerId);
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCoupons(long customerId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<CouponDO> getAllPurchaseCouponsByCustomer(long customerId) {
+		return customerDAO.getAllPurchaseCouponsByCustomer(customerId);
 	}
 
 	@Override
@@ -115,16 +115,11 @@ public class CustomerFacade implements CouponClientFacade {
 	public Collection<CompanyDO> getAllCompanies() {
 		throw new UnsupportedOperationException();
 	}
-
+	
 	@Override
 	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
 		throw new UnsupportedOperationException();
 	}
 
-	@Override
-	public Collection<CouponDO> getAllCouponsByCustomer(long customerId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
+import core.database.model.Type;
 
 public interface CompanyDAO {
 
@@ -17,8 +18,10 @@ public interface CompanyDAO {
 
 	Collection<CompanyDO> getAllCompanies();
 
-	Collection<CouponDO> getCoupons(long companyId);
-
+	Collection<CouponDO> getAllCouponsByCompany(long companyId);
+	
+	Collection<CouponDO> getAllCouponsByCompanyAndType(long companyId, Type type);
+	
 	boolean login(long companyId, String password);
 
 }

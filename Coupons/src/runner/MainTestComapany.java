@@ -28,13 +28,13 @@ public class MainTestComapany {
 		//CompanyDO companyDO = companyDAO.getCompany(4L);
 		//System.out.println(companyDO);
 			
-		//Collection <Company> companies = companyDAO.getAllCompanies();
-		//System.out.println(companies.toString());
-		
+		Collection <CompanyDO> companies = companyDAO.getAllCompanies();
+		System.out.println(companies.toString());
 
-		CompanyDO companyDO = new CompanyDO (7L, "AliceNew", "9876", "AliceNew@gmail.com");
-		int updateCompany = companyDAO.updateCompany(companyDO);
-		System.out.println("number of update records: " + updateCompany);
+
+		//CompanyDO companyDO = new CompanyDO (7L, "AliceNew", "9876", "AliceNew@gmail.com");
+		//int updateCompany = companyDAO.updateCompany(companyDO);
+		//System.out.println("number of update records: " + updateCompany);
 		
 		
 		//boolean login = companyDAO.login("4", "1234");

@@ -7,20 +7,18 @@ import core.database.model.Type;
 
 public interface CouponDAO {
 
-	int createCoupon(CouponDO coupon);
+	int createCoupon(CouponDO couponDO);
 
-	int removeCoupon(CouponDO coupon);
+	void removeCoupon(CouponDO couponDO);
 
-	int updateCoupon(CouponDO coupon);
+	int updateCoupon(CouponDO couponDO);
 	
 	CouponDO getCoupon(long companyId, long couponId);
 	
 	Collection<CouponDO> getAllCoupons();
 
-	Collection<CouponDO> getAllCouponsByCompany(long companyId);
+	Collection<CouponDO> getAllCouponsByType(Type type);
 	
-	Collection<CouponDO> getAllCouponsByCustomer(long customerId);
-	
-	Collection<CouponDO> getAllCouponsByType(long companyId, Type type);
+	Collection<CouponDO> getAllPurchaseCoupons();
 
 }

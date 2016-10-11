@@ -4,6 +4,7 @@ import java.util.Collection;
 
 import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
+import core.database.model.Type;
 
 public interface CustomerDAO {
 	
@@ -17,7 +18,13 @@ public interface CustomerDAO {
 	
 	Collection<CustomerDO> getAllCustomers();
 	
-	Collection<CouponDO> getCoupons(long customerId);
+	Collection<CouponDO> getAllPurchaseCouponsByCustomer(long customerId);
+	
+	Collection<CouponDO> getAllPurchaseCouponsByType(long customerId, Type type);
+	
+	Collection<CouponDO> getAllPurchaseCouponsByPrice(long customerId, double price);
+	
+	int purchaseCoupon (CouponDO couponDO, long customerId);
 	
 	boolean login(long customerId, String password);
 	

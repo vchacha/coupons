@@ -2,35 +2,49 @@ package core.fasade;
 
 import java.util.Collection;
 
+import javax.swing.JOptionPane;
+
 import core.database.CompanyDAO;
+import core.database.CouponDAO;
 import core.database.CustomerDAO;
 import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
+import logic.exceptions.CompanyValidationException;
+import logic.validation.CompanyValidator;
+import logic.validation.DataValidator;
+import logic.validation.ValidationResponse;
 
 public class AdminFacade implements CouponClientFacade {
 
 	private CompanyDAO companyDAO;
 	private CustomerDAO customerDAO;
+	private CouponDAO couponDAO;
 
 	public AdminFacade(CompanyDAO companyDao) {
 		this.companyDAO = companyDao;
 	}
 
 	@Override
-	public int createCompany(CompanyDO companyDO) {
-		return companyDAO.createCompany(companyDO);
+	public void createCompany(CompanyDO companyDO) {
+		DataValidator<CompanyDO> companyValidator = new CompanyValidator();
+		ValidationResponse companyValidatorResponse = companyValidator.validateData(companyDO);
+		if (companyValidatorResponse.isOk()) {
+			companyDAO.createCompany(companyDO);
+			// System.out.println("successfully created company");
+		}
+		throw new CompanyValidationException(companyValidatorResponse.getErrorMessage());
 	}
 
 	@Override
-	public int removeCompany(CompanyDO companyDO) {
-		return companyDAO.removeCompany(companyDO);
+	public void removeCompany(CompanyDO companyDO) {
+		companyDAO.removeCompany(companyDO);
 	}
 
 	@Override
-	public int updateCompany(CompanyDO companyDO) {
-		return companyDAO.updateCompany(companyDO);
+	public void updateCompany(CompanyDO companyDO) {
+		companyDAO.updateCompany(companyDO);
 	}
 
 	@Override
@@ -44,18 +58,18 @@ public class AdminFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public int createCustomer(CustomerDO customerDO) {
-		return customerDAO.createCustomer(customerDO);
+	public void createCustomer(CustomerDO customerDO) {
+		customerDAO.createCustomer(customerDO);
 	}
 
 	@Override
-	public int removeCustomer(CustomerDO customerDO) {
-		return customerDAO.removeCustomer(customerDO);
+	public void removeCustomer(CustomerDO customerDO) {
+		customerDAO.removeCustomer(customerDO);
 	}
 
 	@Override
-	public int updateCustomer(CustomerDO customerDO) {
-		return customerDAO.updateCustomer(customerDO);
+	public void updateCustomer(CustomerDO customerDO) {
+		customerDAO.updateCustomer(customerDO);
 	}
 
 	@Override
@@ -69,75 +83,58 @@ public class AdminFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public int createCoupon(CouponDO coupon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void createCoupon(CouponDO coupon) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int removeCoupon(CouponDO coupon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void removeCoupon(CouponDO coupon) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public int updateCoupon(CouponDO coupon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void updateCoupon(CouponDO coupon) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public CouponDO getCoupon(long companyId, long couponId) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<CouponDO> getAllCoupons() {
-		// TODO Auto-generated method stub
-		return null;
+		return couponDAO.getAllCoupons();
 	}
 
 	@Override
-	public Collection<CouponDO> getCouponsByType(long companyId, Type type) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<CouponDO> getAllCouponsByCompanyAndType(long companyId, Type type) {
+		return companyDAO.getAllCouponsByCompanyAndType(companyId, type);
 	}
 
 	@Override
-	public int purchaseCoupon(CouponDO coupon) {
-		// TODO Auto-generated method stub
-		return 0;
+	public void purchaseCoupon(CouponDO coupon, long customerId) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
-	public Collection<CouponDO> getAllPurchaseCoupons(long customerId) {
-		// TODO Auto-generated method stub
-		return null;
+	public Collection<CouponDO> getAllPurchaseCouponsByCustomer(long customerId) {
+		return customerDAO.getAllPurchaseCouponsByCustomer(customerId);
 	}
 
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByType(long customerId, Type type) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByPrice(long customerId, int price) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Collection<CouponDO> getAllCouponsByCustomer(long customerId) {
-		// TODO Auto-generated method stub
-		return null;
+		return companyDAO.getAllCouponsByCompany(companyId);
 	}
 
 }
