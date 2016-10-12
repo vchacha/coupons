@@ -2,7 +2,6 @@ package core.fasade;
 
 import java.util.Collection;
 
-import core.database.CouponDAO;
 import core.database.CustomerDAO;
 import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
@@ -12,7 +11,11 @@ import core.database.model.Type;
 public class CustomerFacade implements CouponClientFacade {
 	
 	private CustomerDAO customerDAO;
-	private CouponDAO couponDAO;
+	
+	public CustomerFacade(CustomerDAO customerDAO) {
+		super();
+		this.customerDAO = customerDAO;
+	}
 
 	@Override
 	public void createCompany(CompanyDO companyDO) {
@@ -55,7 +58,7 @@ public class CustomerFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public Collection<CustomerDO> getAllCustomer() {
+	public Collection<CustomerDO> getAllCustomers() {
 		throw new UnsupportedOperationException();
 	}
 
@@ -91,6 +94,9 @@ public class CustomerFacade implements CouponClientFacade {
 
 	@Override
 	public void purchaseCoupon(CouponDO couponDO, long customerId) {
+		if (couponDO.getAmount() < 1){
+			System.out.println("Counter of this coupon is empty , please try to buy an another coupon");
+		}
 		customerDAO.purchaseCoupon(couponDO, customerId);
 	}
 
@@ -101,14 +107,12 @@ public class CustomerFacade implements CouponClientFacade {
 
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByType(long customerId, Type type) {
-		// TODO Auto-generated method stub
-		return null;
+		return customerDAO.getAllPurchaseCouponsByType(customerId, type);
 	}
 
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByPrice(long customerId, int price) {
-		// TODO Auto-generated method stub
-		return null;
+		return customerDAO.getAllPurchaseCouponsByPrice(customerId, price);
 	}
 
 	@Override
@@ -118,6 +122,16 @@ public class CustomerFacade implements CouponClientFacade {
 	
 	@Override
 	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByType(Type type) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Collection<CouponDO> getAllPurchaseCoupons() {
 		throw new UnsupportedOperationException();
 	}
 

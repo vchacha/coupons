@@ -1,7 +1,6 @@
 package runner;
 
 import java.util.Collection;
-import java.util.stream.Collectors;
 
 import core.database.CompanyDAO;
 import core.database.CompanyDBDAO;
@@ -14,8 +13,8 @@ public class MainTestComapany {
 	public static void main(String[] args) {
 	CompanyDAO companyDAO = new CompanyDBDAO();
 	try {
-		//int createdCompany = companyDAO.createCompany(new CompanyDO(5L, "arsenal", "6543", "arsenal@gmail.com"));
-		//System.out.println("number of inserted records: " + createdCompany);
+		int createdCompany = companyDAO.createCompany(new CompanyDO(5L, "arsenal", "6543", "arsenal@gmail.com"));
+		System.out.println("number of inserted records: " + createdCompany);
 		
 		//CompanyDO insertedCompany = companyDAO.getCompany(5L);
 		//System.out.println(insertedCompany.toString());	

@@ -27,7 +27,7 @@ public interface CouponClientFacade {
 	
 	CustomerDO getCustomer(long customerId);
 	
-	Collection <CustomerDO> getAllCustomer();
+	Collection <CustomerDO> getAllCustomers();
 	
 	void createCoupon(CouponDO coupon);
 	
@@ -50,6 +50,8 @@ public interface CouponClientFacade {
 	Collection <CouponDO> getAllPurchaseCouponsByType(long customerId, Type type);
 	
 	Collection <CouponDO> getAllPurchaseCouponsByPrice(long customerId, int price);
-
-
+	
+	Collection<CouponDO> getAllCouponsByType(Type type);
+	
+	Collection<CouponDO> getAllPurchaseCoupons();
 }

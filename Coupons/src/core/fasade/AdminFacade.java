@@ -2,8 +2,6 @@ package core.fasade;
 
 import java.util.Collection;
 
-import javax.swing.JOptionPane;
-
 import core.database.CompanyDAO;
 import core.database.CouponDAO;
 import core.database.CustomerDAO;
@@ -12,7 +10,9 @@ import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
 import logic.exceptions.CompanyValidationException;
+import logic.exceptions.CustomerValidationException;
 import logic.validation.CompanyValidator;
+import logic.validation.CustomerValidator;
 import logic.validation.DataValidator;
 import logic.validation.ValidationResponse;
 
@@ -22,8 +22,10 @@ public class AdminFacade implements CouponClientFacade {
 	private CustomerDAO customerDAO;
 	private CouponDAO couponDAO;
 
-	public AdminFacade(CompanyDAO companyDao) {
-		this.companyDAO = companyDao;
+	public AdminFacade(CompanyDAO companyDAO, CustomerDAO customerDAO, CouponDAO couponDAO) {
+		this.companyDAO = companyDAO;
+		this.customerDAO = customerDAO;
+		this.couponDAO = couponDAO;
 	}
 
 	@Override
@@ -32,7 +34,7 @@ public class AdminFacade implements CouponClientFacade {
 		ValidationResponse companyValidatorResponse = companyValidator.validateData(companyDO);
 		if (companyValidatorResponse.isOk()) {
 			companyDAO.createCompany(companyDO);
-			// System.out.println("successfully created company");
+			return;
 		}
 		throw new CompanyValidationException(companyValidatorResponse.getErrorMessage());
 	}
@@ -44,7 +46,13 @@ public class AdminFacade implements CouponClientFacade {
 
 	@Override
 	public void updateCompany(CompanyDO companyDO) {
-		companyDAO.updateCompany(companyDO);
+		DataValidator<CompanyDO> companyValidator = new CompanyValidator();
+		ValidationResponse companyValidatorResponse = companyValidator.validateData(companyDO);
+		if (companyValidatorResponse.isOk()) {
+			companyDAO.updateCompany(companyDO);
+			return;
+		}
+		throw new CompanyValidationException(companyValidatorResponse.getErrorMessage());
 	}
 
 	@Override
@@ -59,7 +67,13 @@ public class AdminFacade implements CouponClientFacade {
 
 	@Override
 	public void createCustomer(CustomerDO customerDO) {
-		customerDAO.createCustomer(customerDO);
+		DataValidator<CustomerDO> customerValidator = new CustomerValidator();
+		ValidationResponse customerValidatorResponse = customerValidator.validateData(customerDO);
+		if (customerValidatorResponse.isOk()) {
+			customerDAO.createCustomer(customerDO);
+			return;
+		}
+		throw new CustomerValidationException(customerValidatorResponse.getErrorMessage());
 	}
 
 	@Override
@@ -69,7 +83,13 @@ public class AdminFacade implements CouponClientFacade {
 
 	@Override
 	public void updateCustomer(CustomerDO customerDO) {
+		DataValidator<CustomerDO> customerValidator = new CustomerValidator();
+		ValidationResponse customerValidatorResponse = customerValidator.validateData(customerDO);
+		if (customerValidatorResponse.isOk()) {
 		customerDAO.updateCustomer(customerDO);
+		return;
+		}
+		throw new CustomerValidationException(customerValidatorResponse.getErrorMessage());
 	}
 
 	@Override
@@ -78,7 +98,7 @@ public class AdminFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public Collection<CustomerDO> getAllCustomer() {
+	public Collection<CustomerDO> getAllCustomers() {
 		return customerDAO.getAllCustomers();
 	}
 
@@ -135,6 +155,16 @@ public class AdminFacade implements CouponClientFacade {
 	@Override
 	public Collection<CouponDO> getAllCouponsByCompany(long companyId) {
 		return companyDAO.getAllCouponsByCompany(companyId);
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByType(Type type) {
+		return couponDAO.getAllCouponsByType(type);
+	}
+
+	@Override
+	public Collection<CouponDO> getAllPurchaseCoupons() {
+		return couponDAO.getAllPurchaseCoupons();
 	}
 
 }

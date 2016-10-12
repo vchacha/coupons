@@ -2,6 +2,7 @@ package core.fasade;
 
 import core.database.CompanyDAO;
 import core.database.CompanyDBDAO;
+import core.database.CouponDBDAO;
 import core.database.CustomerDAO;
 import core.database.CustomerDBDAO;
 import logic.exceptions.LoginException;
@@ -11,15 +12,15 @@ public class LoginManager {
 	public CouponClientFacade login(String id, String password, ClientType clientType) {
 		if (isLoginSucceed(id, password, clientType)) {
 			if (clientType.equals(ClientType.ADMIN)) {
-				return new AdminFacade(new CompanyDBDAO());
+				return new AdminFacade(new CompanyDBDAO(), new CustomerDBDAO(), new CouponDBDAO());
 			}
 
 			if (clientType.equals(ClientType.COMPANY)) {
-				return new CompanyFacade();
+				return new CompanyFacade(new CouponDBDAO(), new CompanyDBDAO());
 			}
 
 			if (clientType.equals(ClientType.CUSTOMER)) {
-				return new CustomerFacade();
+				return new CustomerFacade(new CustomerDBDAO());
 			}
 		}
 		throw new LoginException(

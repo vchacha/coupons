@@ -8,7 +8,6 @@ public class CustomerDO {
 	private String customerName;
 	private String password;
 	private String email;
-	private Collection <CouponDO> coupon;
 
 	public CustomerDO(long customerId, String customerName, String password, String email) {
 		this.customerId = customerId;
@@ -33,14 +32,6 @@ public class CustomerDO {
 		return email;
 	}
 
-	public Collection<CouponDO> getCoupon() {
-		return coupon;
-	}
-
-	public void setCoupon(Collection<CouponDO> coupon) {
-		this.coupon = coupon;
-	}
-
 	public void setCustomerName(String customerName) {
 		this.customerName = customerName;
 	}
@@ -57,7 +48,7 @@ public class CustomerDO {
 	public String toString() {
 		String customer = 
 		"Customer Id:  " + getCustomerId() + "\n" +
-		"Company Name: " + getCustomerName() + "\n" +
+		"Customer Name: " + getCustomerName() + "\n" +
 		"Password:     " + getPassword() + "\n" +
 		"Email:        " + getEmail() + "\n";
 			return customer;

@@ -43,8 +43,6 @@ public class CompanyDO {
 		return email;
 	}
 
-	
-
 
 	@Override
 	public String toString() {

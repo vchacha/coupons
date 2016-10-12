@@ -8,11 +8,23 @@ import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
+import logic.exceptions.CompanyValidationException;
+import logic.exceptions.CouponValidationException;
+import logic.validation.CompanyValidator;
+import logic.validation.CouponValidator;
+import logic.validation.DataValidator;
+import logic.validation.ValidationResponse;
 
 public class CompanyFacade implements CouponClientFacade {
 	
 	private CouponDAO couponDAO;
 	private CompanyDAO companyDAO;
+
+	public CompanyFacade(CouponDAO couponDAO, CompanyDAO companyDAO) {
+		super();
+		this.couponDAO = couponDAO;
+		this.companyDAO = companyDAO;
+	}
 
 	@Override
 	public void createCompany(CompanyDO company) {
@@ -60,13 +72,19 @@ public class CompanyFacade implements CouponClientFacade {
 	}
 
 	@Override
-	public Collection<CustomerDO> getAllCustomer() {
+	public Collection<CustomerDO> getAllCustomers() {
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void createCoupon(CouponDO couponDO) {
-		couponDAO.createCoupon(couponDO);
+		DataValidator<CouponDO> couponValidator = new CouponValidator();
+		ValidationResponse couponValidatorResponse = couponValidator.validateData(couponDO);
+		if (couponValidatorResponse.isOk()) {
+			couponDAO.createCoupon(couponDO);
+			return;
+		}
+		throw new CouponValidationException(couponValidatorResponse.getErrorMessage());
 	}
 
 	@Override
@@ -76,7 +94,13 @@ public class CompanyFacade implements CouponClientFacade {
 
 	@Override
 	public void updateCoupon(CouponDO couponDO) {
-		couponDAO.updateCoupon(couponDO);
+		DataValidator<CouponDO> couponValidator = new CouponValidator();
+		ValidationResponse couponValidatorResponse = couponValidator.validateData(couponDO);
+		if (couponValidatorResponse.isOk()) {
+			couponDAO.updateCoupon(couponDO);
+			return;
+		}
+		throw new CouponValidationException(couponValidatorResponse.getErrorMessage());
 	}
 
 	@Override
@@ -116,6 +140,16 @@ public class CompanyFacade implements CouponClientFacade {
 
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByPrice(long customerId, int price) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Collection<CouponDO> getAllCouponsByType(Type type) {
+		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public Collection<CouponDO> getAllPurchaseCoupons() {
 		throw new UnsupportedOperationException();
 	}
 

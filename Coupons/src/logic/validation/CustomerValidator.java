@@ -8,13 +8,13 @@ public class CustomerValidator implements DataValidator<CustomerDO> {
 
 	private static final int MINIMUM_ALLOWED_PASSWORD_LENGTH = 4;
 	private static final long MINIMUN_NUMBER_ID = 1000;
-	private static final int MINIMUN_ALLOWED_CUSTOMER_NAME_LENGTH = 3;
+	private static final int MINIMUN_ALLOWED_CUSTOMER_NAME_LENGTH = 2;
 
 	@Override
 	public ValidationResponse validateData(CustomerDO customerDO) {
 		boolean isIdMeetRules = validateId(customerDO.getCustomerId());
-		boolean isNameMeetRules = validateStringByName(customerDO.getCustomerName(), MINIMUN_ALLOWED_CUSTOMER_NAME_LENGTH);
-		boolean isPasswordMeetRules = validateStringByName(customerDO.getPassword(), MINIMUM_ALLOWED_PASSWORD_LENGTH);
+		boolean isNameMeetRules = validateString(customerDO.getCustomerName(), MINIMUN_ALLOWED_CUSTOMER_NAME_LENGTH);
+		boolean isPasswordMeetRules = validateString(customerDO.getPassword(), MINIMUM_ALLOWED_PASSWORD_LENGTH);
 		boolean isEmailMeetRules = validateEmail(customerDO.getEmail());
 		StringBuilder aggregateErrorMessage = new StringBuilder();
 		if (!isIdMeetRules) {
@@ -42,11 +42,11 @@ public class CustomerValidator implements DataValidator<CustomerDO> {
 		return false;
 	}
 
-	private boolean validateStringByName(String string, int maxAllowedLength) {
+	private boolean validateString(String string, int minAllowedLength) {
 		if (string == null || string.isEmpty()) {
 			return false;
 		}
-		return string.length() >= maxAllowedLength;
+		return string.length() >= minAllowedLength;
 	}
 
 	private boolean validateEmail(String email) {

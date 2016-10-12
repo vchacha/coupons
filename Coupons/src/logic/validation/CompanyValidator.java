@@ -13,8 +13,8 @@ public class CompanyValidator implements DataValidator<CompanyDO> {
 	@Override
 	public ValidationResponse validateData(CompanyDO companyDO) {
 		boolean isIdMeetRules = validateId(companyDO.getCompanyId());
-		boolean isNameMeetRules = validateStringByName(companyDO.getCompanyName(), MINIMUN_ALLOWED_COMPANY_NAME_LENGTH);
-		boolean isPasswordMeetRules = validateStringByName(companyDO.getPassword(), MINIMUM_ALLOWED_PASSWORD_LENGTH);
+		boolean isNameMeetRules = validateString(companyDO.getCompanyName(), MINIMUN_ALLOWED_COMPANY_NAME_LENGTH);
+		boolean isPasswordMeetRules = validateString(companyDO.getPassword(), MINIMUM_ALLOWED_PASSWORD_LENGTH);
 		boolean isEmailMeetRules = validateEmail(companyDO.getEmail());
 		StringBuilder aggregateErrorMessage = new StringBuilder();
 		if (!isIdMeetRules) {
@@ -42,11 +42,11 @@ public class CompanyValidator implements DataValidator<CompanyDO> {
 		return false;
 	}
 
-	private boolean validateStringByName(String string, int maxAllowedLength) {
+	private boolean validateString(String string, int minAllowedLength) {
 		if (string == null || string.isEmpty()) {
 			return false;
 		}
-		return string.length() >= maxAllowedLength;
+		return string.length() >= minAllowedLength;
 	}
 
 	private boolean validateEmail(String email) {

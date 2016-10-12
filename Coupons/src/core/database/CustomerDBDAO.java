@@ -14,6 +14,17 @@ import java.util.List;
 import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
+import logic.exceptions.DAOException;
+
+/**
+ * Implements CRUD operations for {@code CustomerDO} 
+ * All methods creates connection to database, in the end of method connection is closed. 
+ * This class work with Customer table and Customer_Coupon table in database
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *  
+ */
 
 public class CustomerDBDAO implements CustomerDAO {
 
@@ -24,6 +35,17 @@ public class CustomerDBDAO implements CustomerDAO {
 		this.connection = ConnectionManagerPool.getInstance().returnConnection();
 	}
 
+	/** 
+	 * this method inserts Customer to Customer table in database
+	 * builds query to insert to database
+	 * creates connection to database
+	 * @param  customerDO
+	 * 		   
+	 * @throws DAOException
+	 * 		   if wasn't able to insert customer
+	 * @return integer
+	 * 		   number of insert records
+	 *   */
 	@Override
 	public int createCustomer(CustomerDO customerDO) {
 		try {
@@ -33,11 +55,22 @@ public class CustomerDBDAO implements CustomerDAO {
 			statement.close();
 			return numberOfInsertRecords;
 		} catch (SQLException e) {
-			throw new RuntimeException(
+			throw new DAOException(
 					"Wasn't able to inset customer: " + "\n" + customerDO.toString() + "\n" + e.getMessage());
 		}
 	}
-
+	
+	/** 
+	 * this method removes Customer from Customer table in database
+	 * builds query to insert to database, searches Customer by ID
+	 * creates connection to database
+	 * @param  customerDO
+	 * 		   
+	 * @throws DAOException
+	 * 		   if wasn't able to remove customer
+	 * @return integer
+	 * 		   number of remove records
+	 *   */
 	@Override
 	public int removeCustomer(CustomerDO customerDO) {
 		try {
@@ -46,11 +79,22 @@ public class CustomerDBDAO implements CustomerDAO {
 			statement.close();
 			return numberOfRemoveRecords;
 			} catch (SQLException e) {
-			throw new RuntimeException(
+			throw new DAOException(
 					"wasn't able to remove customer ..." + customerDO.toString() + "\n" + e.getMessage());
 		}
 	}
 
+	/** 
+	 * this method updates all Customer parameters in Customer table in database except customerId
+	 * builds query to insert to database, searches Customer by ID
+	 * creates connection to database
+	 * @param  customerDO
+	 * 		   
+	 * @throws DAOException
+	 * 		   if wasn't able to update customer
+	 * @return integer
+	 * 		   number of update records
+	 *   */
 	@Override
 	public int updateCustomer(CustomerDO customerDO) {
 		try {
@@ -63,10 +107,20 @@ public class CustomerDBDAO implements CustomerDAO {
 		} catch (SQLException e) {
 			String errorMessage = "Wasn't able to update customer ..." + customerDO.toString() + "\n" + e.getMessage();
 			System.err.println(errorMessage);
-			throw new RuntimeException(errorMessage);
+			throw new DAOException(errorMessage);
 		}
 	}
 
+	/** 
+	 * this method gets Customer parameters from Customer table in database
+	 * builds query to insert to database, searches Customer by ID
+	 * creates connection to database
+	 * @param  long
+	 * 		   customerId
+	 * @throws DAOException
+	 * 		   if wasn't able to find customer
+	 * @return Customer
+	  */
 	@Override
 	public CustomerDO getCustomer(long customerId) {
 		Statement statement = null;
@@ -82,7 +136,7 @@ public class CustomerDBDAO implements CustomerDAO {
 			}
 
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find customerID ..." + customerId + "\n" + e.getMessage());
+			throw new DAOException("Wasn't able to find customerID ..." + customerId + "\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -95,6 +149,15 @@ public class CustomerDBDAO implements CustomerDAO {
 		return customerDO;
 	}
 
+	/** 
+	 * this method gets Collection of Customers from Customer table in database
+	 * builds query to insert to database
+	 * creates connection to database
+	 * 		   
+	 * @throws DAOException
+	 * 		   if wasn't able to find any customer
+	 * @return Collection of Customers
+	  */
 	@Override
 	public Collection<CustomerDO> getAllCustomers() {
 		Statement statement = null;
@@ -109,7 +172,7 @@ public class CustomerDBDAO implements CustomerDAO {
 				customers.add(tempCustomerDO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find any customer list ...\n" + e.getMessage());
+			throw new DAOException("Wasn't able to find any customer list ...\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -121,7 +184,19 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 		return customers;
 	}
-
+	/** 
+	 * this method inserts Coupon Id and customer Id (that wants to purchase this coupon) to table Customer_Coupon in database
+	 * builds query to insert to database
+	 * creates connection to database
+	 * @param  couponDO
+	 * 
+	 * @param  long
+	 * 		   customerID
+	 * @throws DAOException
+	 * 		   if wasn't able to purchase coupon
+	 * @return integer
+	 * 		   number of purchase coupon
+	 *   */
 	@Override
 	public int purchaseCoupon(CouponDO couponDO, long customerID) {
 		Statement statement = null;
@@ -133,11 +208,24 @@ public class CustomerDBDAO implements CustomerDAO {
 			statement.close();
 		return numberOfPurchaseCoupon;
 		} catch (SQLException e) {
-			throw new RuntimeException(
+			throw new DAOException(
 					"Wasn't able to purchase coupon: " + "\n" + couponDO.toString() + "\n" + e.getMessage());
 			}
 	}
 	
+	/** 
+	 * this method returns Collection of Coupons that was purchased by customer
+	 * searches them by customerId in table Customer_Coupon
+	 * but all Coupon parameters data are at Coupon table in database
+	 * builds query to insert to database
+	 * creates connection to database
+	 * 
+	 * @param  long
+	 * 		   customerID
+	 * @throws DAOException
+	 * 		   if wasn't able to find coupon list
+	 * @return Collection of Coupons
+	 *   */
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByCustomer(long customerId) {
 		Statement statement = null;
@@ -163,7 +251,7 @@ public class CustomerDBDAO implements CustomerDAO {
 				coupons.add(tempCouponDO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
+			throw new DAOException("Wasn't able to find any coupon list ...\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -176,6 +264,21 @@ public class CustomerDBDAO implements CustomerDAO {
 		return coupons;
 	}
 
+	/** 
+	 * this method returns Collection of Coupons with some Type and that was purchased by customer
+	 * searches them by customerId in table Customer_Coupon
+	 * but all Coupon parameters data are at Coupon table in database
+	 * builds query to insert to database
+	 * creates connection to database
+	 * 
+	 * @param  long
+	 * 		   customerID
+	 * @param  Type
+	 * 		   type of Coupon
+	 * @throws DAOException
+	 * 		   if wasn't able to find coupon list
+	 * @return Collection of Coupons
+	 *   */
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByType(long customerId, Type type) {
 		Statement statement = null;
@@ -201,7 +304,7 @@ public class CustomerDBDAO implements CustomerDAO {
 				coupons.add(tempCouponDO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
+			throw new DAOException("Wasn't able to find any coupon list ...\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -214,6 +317,21 @@ public class CustomerDBDAO implements CustomerDAO {
 		return coupons;
 	}
 	
+	/** 
+	 * this method returns Collection of Coupons with some Price and that was purchased by customer
+	 * searches them by customerId in table Customer_Coupon
+	 * but all Coupon parameters data are at Coupon table in database
+	 * builds query to insert to database
+	 * creates connection to database
+	 * 
+	 * @param  long
+	 * 		   customerID
+	 * @param  double
+	 * 		   price
+	 * @throws DAOException
+	 * 		   if wasn't able to find coupon list
+	 * @return Collection of Coupons
+	 *   */
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByPrice(long customerId, double price) {
 		Statement statement = null;
@@ -239,7 +357,7 @@ public class CustomerDBDAO implements CustomerDAO {
 				coupons.add(tempCouponDO);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("Wasn't able to find any coupon list ...\n" + e.getMessage());
+			throw new DAOException("Wasn't able to find any coupon list ...\n" + e.getMessage());
 		} finally {
 			try {
 				if (statement != null) {
@@ -251,7 +369,19 @@ public class CustomerDBDAO implements CustomerDAO {
 		}
 		return coupons;
 	}	
-	
+	/** 
+	 * this method return true then find in Customer table in database Customer with CustomerId and Password, else false
+	 * builds query to insert to database, searches Customer by CustomerId and verify Password
+	 * creates connection to database
+	 * 		   
+	 * @param  long
+	 * 		   customerId
+	 * @param  String
+	 * 		   password 
+	 * @throws DAOException
+	 * 		   Company id or/and password are not exist in database
+	 * @return boolean
+	  */	
 	@Override
 	public boolean login(long customerId, String password) {
 		Statement statement = null;
@@ -269,7 +399,7 @@ public class CustomerDBDAO implements CustomerDAO {
 				tempPassword = resultSet.getString("Password");
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(
+			throw new DAOException(
 					"Customer id or/and password are not valid! Please try again... \n" + e.getMessage());
 		} finally {
 			try {
@@ -321,7 +451,7 @@ public class CustomerDBDAO implements CustomerDAO {
 		try {
 			return simpleDateFormat.parse(date);
 		} catch (ParseException e) {
-			throw new RuntimeException("cannot parse date: " + date + " from coupon table: " + "\n" + e.getMessage()); 
+			throw new DAOException("cannot parse date: " + date + " from coupon table: " + "\n" + e.getMessage()); 
 		}		
 	}
 

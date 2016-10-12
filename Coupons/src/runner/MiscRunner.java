@@ -10,16 +10,58 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MiscRunner {
+import core.database.ConnectionManagerPool;
+import core.database.model.CompanyDO;
+import core.fasade.ClientType;
+import core.fasade.CouponClientFacade;
+import core.fasade.LoginManager;
+import logic.exceptions.CompanyValidationException;
+import logic.exceptions.DAOException;
+import logic.exceptions.LoginException;
 
-	public static void main(String[] args) throws ParseException {
+public class MiscRunner {
+	
+	public static void main(String[] args) {
+	try {
+
+		LoginManager loginManagerAdmin = new LoginManager();
+		//TODO Login with user Admin (username 'Admin', password '1234'), if password is incorrect, expect exception
+		CouponClientFacade couponClientFacadeAdmin = loginManagerAdmin.login("Admin", "1234", ClientType.ADMIN);
+	
+		//Creation a new Company (without exception)
+		try {
+			couponClientFacadeAdmin.createCompany(new CompanyDO(12345, "ebay", "eB765", "ebay@gmail.com"));				
+		} catch (DAOException e) {
+			System.err.println(e.getMessage());
+		}
+	} catch (LoginException e) {
+		System.out.println("Error!!!" + e.getMessage());
+	}	
+	
+	
+	finally {
+		ConnectionManagerPool.getInstance().closeAllConnection();
+	}
+}}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+	/*public static void main(String[] args) throws ParseException {
 		List<String> strings = new ArrayList<>();
 		strings.add("10");
 		strings.add("12");
 		strings.add("3");
 		strings.add("5");
 		
-		System.out.println(String.join(",", strings));
+		System.out.println(String.join(",", strings));*/
 		
 		
 		/*Date date = new Date();
@@ -39,6 +81,6 @@ public class MiscRunner {
 //		LocalDateTime dateTimeFromDateAndTime = LocalDateTime.parse("2016-10-11 09:46:00");
 		
 //		System.out.println(dateTimeFromDateAndTime.toString());
-	}
+//	}
 
-}
+//}
