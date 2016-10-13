@@ -8,13 +8,39 @@ import core.database.model.CompanyDO;
 import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
-import logic.exceptions.CompanyValidationException;
 import logic.exceptions.CouponValidationException;
-import logic.validation.CompanyValidator;
 import logic.validation.CouponValidator;
 import logic.validation.DataValidator;
 import logic.validation.ValidationResponse;
 
+/**
+ * Exposes methods for user of type Company. Abstracts two database tables: {Company, Coupon}
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *  
+ *  @throws UnsupportedOperationException for following methods:
+ *  {createCompany,
+ *   removeCompany,
+ *   updateCompany, 
+ *   getCompany,
+ *   getAllCompanies,
+ *   createCustomer,
+ *   removeCustomer,
+ *   updateCustomer,
+ *   getCustomer,
+ *   getAllCustomers,
+ *   getAllCoupons,
+ *   purchaseCoupon,
+ *   getAllPurchaseCouponsByCustomer,
+ *   getAllPurchaseCouponsByType
+ *   getAllPurchaseCouponsByPrice,
+ *   getAllCouponsByType,
+ *   getAllPurchaseCoupons}
+ *   
+ *   @throws CouponValidationException
+ *   		 if Coupon parameters does not meet required standards
+ */
 public class CompanyFacade implements CouponClientFacade {
 	
 	private CouponDAO couponDAO;

@@ -4,6 +4,21 @@ import core.database.model.CompanyDO;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Validates Company parameters:
+ *  <blockquote><pre>
+ *     id rules:  expected id should be > 1000
+ *     company name rules: expected name should be >= 3 letters
+ *     password rules: expected password should be >= 4 letters
+ *     email rules: expected email in valid email format
+ * </pre></blockquote><p>
+ * <p> If parameters meets required standards, throws ValidationResponse with true
+ * <p> If parameters does not meet required standards, throws ValidationResponse with false and all error message
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *
+ */
 public class CompanyValidator implements DataValidator<CompanyDO> {
 
 	private static final int MINIMUM_ALLOWED_PASSWORD_LENGTH = 4;

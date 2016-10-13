@@ -16,6 +16,27 @@ import logic.validation.CustomerValidator;
 import logic.validation.DataValidator;
 import logic.validation.ValidationResponse;
 
+/**
+ * Exposes methods for user of type Admin. Abstracts three database tables: {Company, Coupon, Customer}
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *  
+ *  @throws UnsupportedOperationException for following methods:
+ *  {createCoupon,
+ *   removeCoupon,
+ *   updateCoupon, 
+ *   getCoupon,
+ *   purchaseCoupon,
+ *   getAllPurchaseCouponsByType
+ *   getAllPurchaseCouponsByPrice}
+ *   
+ *   @throws CustomerValidationException
+ *   		 if Customer parameters does not meet required standards 
+ *   @throws CompanyValidationException
+ *   		 if Company parameters does not meet required standards	
+ */
+
 public class AdminFacade implements CouponClientFacade {
 
 	private CompanyDAO companyDAO;

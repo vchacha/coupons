@@ -2,11 +2,25 @@ package logic.validation;
 
 import core.database.model.CouponDO;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
+/**
+ * Validates Coupon parameters:
+ *  <blockquote><pre>
+ *     coupon id and company id rules:  expected id should be > 1000
+ *     title, message and image rules: expected String should be >= 4 letters
+ *     start date rules: expected start date should not be older current date
+ *     end date rules: expected end date should not be older current date and start date
+ *     amount and price rules: expected amount and price should be > 1
+ *     
+ * </pre></blockquote><p>
+ * <p> If parameters meets required standards, throws ValidationResponse with true
+ * <p> If parameters does not meet required standards, throws ValidationResponse with false and all error message
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *
+ */
 public class CouponValidator implements DataValidator<CouponDO> {
 
 	private static final int MINIMUN_ALLOWED_STRING_LENGTH = 4;
@@ -71,15 +85,13 @@ public class CouponValidator implements DataValidator<CouponDO> {
 	}
 
 	private boolean validateDate(Date startDate, Date endDate) {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		   Date currentDate = new Date();
-		if (startDate.before(currentDate) || endDate.before(currentDate)){
-			return false;
-		}	
-		if (endDate.before(startDate)){
+		Date currentDate = new Date();
+		if (startDate.before(currentDate) || endDate.before(currentDate)) {
 			return false;
 		}
-		
+		if (endDate.before(startDate)) {
+			return false;
+		}
 		return true;
 	}
 

@@ -1,12 +1,22 @@
 package core.fasade;
 
 import core.database.CompanyDAO;
+
 import core.database.CompanyDBDAO;
 import core.database.CouponDBDAO;
 import core.database.CustomerDAO;
 import core.database.CustomerDBDAO;
 import logic.exceptions.LoginException;
 
+/**
+ * Enables to login to three client type: {Admin, Company, Customer}
+ * by providing ID and password.
+ * <p>If Id and password does not found throws {@code LoginException}
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *  
+ */
 public class LoginManager {
 
 	public CouponClientFacade login(String id, String password, ClientType clientType) {

@@ -8,6 +8,40 @@ import core.database.model.CouponDO;
 import core.database.model.CustomerDO;
 import core.database.model.Type;
 
+/**
+ * Exposes methods for user of type Customer. Abstracts one database tables: {Customer}
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *  
+ *  @throws UnsupportedOperationException for following methods:
+ *  {createCompany,
+ *   removeCompany,
+ *   updateCompany, 
+ *   getCompany,
+ *   getAllCompanies,
+ *   createCustomer,
+ *   removeCustomer,
+ *   updateCustomer,
+ *   getCustomer,
+ *   getAllCustomers,
+ *   createCoupon,
+ *   removeCoupon,
+ *   updateCoupon,
+ *   getCoupon,
+ *   getAllCoupons,
+ *   getAllCouponsByCompany
+ *   getAllCouponsByCompanyAndType
+ *   getAllPurchaseCouponsByCustomer,
+ *   getAllPurchaseCouponsByType
+ *   getAllPurchaseCouponsByPrice,
+ *   getAllCouponsByType,
+ *   getAllPurchaseCoupons}
+ *   
+ *   @throws CouponValidationException
+ *   		 if Coupon parameters does not meet required standards
+ */
+
 public class CustomerFacade implements CouponClientFacade {
 	
 	private CustomerDAO customerDAO;
@@ -49,7 +83,7 @@ public class CustomerFacade implements CouponClientFacade {
 
 	@Override
 	public void updateCustomer(CustomerDO customerDO) {
-		customerDAO.createCustomer(customerDO);
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

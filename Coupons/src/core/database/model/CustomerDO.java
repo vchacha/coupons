@@ -1,7 +1,5 @@
 package core.database.model;
 
-import java.util.Collection;
-
 public class CustomerDO {
 
 	private long customerId;

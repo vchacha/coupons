@@ -4,10 +4,23 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import logic.exceptions.DAOException;
+
+
+/**
+ * Singleton Class with fixed number of connection to database
+ * Signing into database with a user name and password 
+ * If no connection are available, the system does not allow additional connection
+ * 
+ * @author Svetlana Vainer
+ * @author Alissa Boubyr
+ *  
+ */
+
 public class ConnectionManagerPool implements ConnectionManager {
 
 	private static final int CONNECTIONS_NUMBER = 1;
-	private static final String DB_URL = "jdbc:mysql://localhost:3306/test1?autoReconnect=true&useSSL=false&verifyServerCertificate=false";
+	private static final String DB_URL = "jdbc:mysql://localhost:3306/svetaalissa?autoReconnect=true&useSSL=false&verifyServerCertificate=false";
 	private static final String USERNAME = "root";
 	private static final String PASSWORD = "root";
 
@@ -17,6 +30,14 @@ public class ConnectionManagerPool implements ConnectionManager {
 	private ConnectionManagerPool() {
 	}
 
+	/** 
+	 * returns instance of {@code ConnectionManagerPool}
+	 * Promises to return same instance for each call.
+	 * 		   
+	 * @throws DAOException
+	 * 		   if cannot establish connection
+	 * @return instance of {@code ConnectionManager}
+	 *   */
 	public static ConnectionManager getInstance() {
 		if (connectionManager == null) {
 			try {
@@ -25,17 +46,28 @@ public class ConnectionManagerPool implements ConnectionManager {
 				}
 				connectionManager = new ConnectionManagerPool();
 			} catch (SQLException e) {
-				throw new RuntimeException("cannot establish connection");
+				throw new DAOException("cannot establish connection");
 			}
 		}
 		return connectionManager;
 	}
 
+	/** 
+	 * returns connection
+	 * 		
+	 * @return connection
+	 *   */
 	@Override
 	public Connection returnConnection() {
 		return connections[CONNECTIONS_NUMBER - 1];
 	}
 
+	/** 
+	 * close all connections
+	 * 		   
+	 * @throws DAOException
+	 * 		   if cannot close connection
+	 *   */
 	@Override
 	public void closeAllConnection() {
 		try {
@@ -45,13 +77,17 @@ public class ConnectionManagerPool implements ConnectionManager {
 				}
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException("cannot close connection");
+			throw new DAOException("cannot close connection");
 		}
 	}
-
+	
+	/** 
+	 * if no connection are available, the method lock connection 
+	 * 		  
+	 *   */
 	@Override
 	public void lockConnection() {
-		// TODO lock connection
+		
 	}
 
 }

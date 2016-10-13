@@ -205,6 +205,11 @@ public class CustomerDBDAO implements CustomerDAO {
 
 			String query = ("INSERT INTO Customer_Coupon VALUES(" + customerID + "," + couponDO.getCouponId() + ")");
 			int numberOfPurchaseCoupon = statement.executeUpdate(query); 
+			if (numberOfPurchaseCoupon > 0){
+				int tempAmount = couponDO.getAmount() - 1;
+				String queryAmount = ("UPDATE Coupon SET Amount = " + tempAmount + " WHERE Coupon_id = " + couponDO.getCouponId());
+				statement.executeUpdate(queryAmount);
+			}
 			statement.close();
 		return numberOfPurchaseCoupon;
 		} catch (SQLException e) {
@@ -220,12 +225,11 @@ public class CustomerDBDAO implements CustomerDAO {
 	 * builds query to insert to database
 	 * creates connection to database
 	 * 
-	 * @param  long
-	 * 		   customerID
+	 * @param  long customerID
 	 * @throws DAOException
 	 * 		   if wasn't able to find coupon list
 	 * @return Collection of Coupons
-	 *   */
+	 * */
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByCustomer(long customerId) {
 		Statement statement = null;
@@ -278,7 +282,7 @@ public class CustomerDBDAO implements CustomerDAO {
 	 * @throws DAOException
 	 * 		   if wasn't able to find coupon list
 	 * @return Collection of Coupons
-	 *   */
+	 **/
 	@Override
 	public Collection<CouponDO> getAllPurchaseCouponsByType(long customerId, Type type) {
 		Statement statement = null;
